@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="assets/images/icone-les-petits-plats.png">
+    <script src="https://kit.fontawesome.com/00438a5bc2.js" crossorigin="anonymous"></script>
+    <title>Les petits plats</title>
+</head>
+
+<body>
+    <header>
+        <div class="flexCenter">
+            <div class="top-left">
+                <img src="assets/images/Logo_les_petits_plats.svg" class="logo" alt="Logo_les_petits_plats"
+                    type="image" />
+            </div>
+            <img src="assets/images/image_de_fond.png" class="image_de_fond" alt="image de fond" type="image" />
+            <div class="contenue_centre">
+                <p class="text">CHERCHEZ PARMI PLUS DE 1500 RECETTES </br> DU QUOTIDIEN, SIMPLES ET DÉLICIEUSES</p>
+                <div class="search-container">
+                    <input id="recherche" type="text" placeholder="Rechercher une recette, ingrédient,... "
+                        class="searchHeader search-input" />
+                    <i class="fas fa-times clearSearch positionClear"></i>
+                    <button class="search__button" type="button">
+                        <i class="fa-solid fa-magnifying-glass" style="color: #ffffff;"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="bagrndBody">
+        <div class="displayFlex">
+            <div class="flexstart ">
+                <section>
+                    <div class="filter">
+                        <div class="filter-container">
+                            <div class="dropdown" aria-label="Trier par">
+                                <button class="btn-dropdown">
+                                    <span id="sort1">Ingrédients</span>
+                                    <span class="chevron"> <strong class="fas fa-chevron-up"></strong></span>
+                                </button>
+                                <div class="dropdown-content">
+                                    <div class="search-container-filter">
+                                        <input type="text" class="search-input padding" />
+                                        <span class="search-icons">
+                                            <i class="fas fa-times clearSearch"></i>
+                                            <i class="fas fa-search"></i>
+                                        </span>
+                                    </div>
+                                    <div class="ingredient-list"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="filter">
+                        <div class="filter-container">
+                            <div class="dropdown" aria-label="Trier par">
+                                <button class="btn-dropdown">
+                                    <span id="sort2">Appareils</span>
+                                    <span class="chevron"> <strong class="fas fa-chevron-up"></strong></span>
+                                </button>
+                                <div class="dropdown-content">
+                                    <div class="search-container-filter">
+                                        <input type="text" class="search-input padding" />
+                                        <span class="search-icons">
+                                            <i class="fas fa-times clearSearch"></i>
+                                            <i class="fas fa-search"></i>
+                                        </span>
+                                    </div>
+                                    <div class="appliance-list"></div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="filter">
+                        <div class="filter-container">
+                            <div class="dropdown" aria-label="Trier par">
+                                <button class="btn-dropdown">
+                                    <span id="sort3">Ustensiles</span>
+                                    <span class="chevron"> <strong class="fas fa-chevron-up"></strong></span>
+                                </button>
+                                <div class="dropdown-content">
+                                    <div class="search-container-filter">
+                                        <input type="text" class="search-input padding" />
+                                        <span class="search-icons">
+                                            <i class="fas fa-times clearSearch"></i>
+                                            <i class="fas fa-search"></i>
+                                        </span>
+                                    </div>
+                                    <div class="utensil-list"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <h2 class="margin"><span id="nombreRecettes">1500</span> recettes</h2>
+        </div>
+        
+        <section>
+            <div class="bagrndcarte gap"></div>
+        </section>
+        
+    </main>
+</body>
+<script src="index.js"></script>
+<script src="filtres/ustensiles.js"></script>
+<script src="filtres/appareils.js"></script>
+<script src="filtres/ingredients.js"></script>
+<script src="filtres/btnFiltre.js"></script>
+<script src="cartes/carte.js"> </script>
+
+</html>
