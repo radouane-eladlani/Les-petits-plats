@@ -21,7 +21,7 @@
                 <p class="text">CHERCHEZ PARMI PLUS DE 1500 RECETTES </br> DU QUOTIDIEN, SIMPLES ET DÉLICIEUSES</p>
                 <div class="search-container">
                     <input id="recherche" type="text" placeholder="Rechercher une recette, ingrédient,... "
-                        class="searchHeader search-input" />
+                        class="searchHeader" />
                     <i class="fas fa-times clearSearch positionClear"></i>
                     <button class="search__button" type="button">
                         <i class="fa-solid fa-magnifying-glass" style="color: #ffffff;"></i>
@@ -43,13 +43,14 @@
                                 </button>
                                 <div class="dropdown-content">
                                     <div class="search-container-filter">
-                                        <input type="text" class="search-input padding" />
+                                        <input type="text" class="search-input-ingredient padding" placeholder="Rechercher un ingredient" />
                                         <span class="search-icons">
                                             <i class="fas fa-times clearSearch"></i>
                                             <i class="fas fa-search"></i>
                                         </span>
                                     </div>
                                     <div class="ingredient-list"></div>
+                                <div class="selection-container"></div>
                                 </div>
                             </div>
                         </div>
@@ -66,14 +67,14 @@
                                 </button>
                                 <div class="dropdown-content">
                                     <div class="search-container-filter">
-                                        <input type="text" class="search-input padding" />
+                                        <input type="text" class="search-input-appareil padding" placeholder="Rechercher un appareil" />
                                         <span class="search-icons">
                                             <i class="fas fa-times clearSearch"></i>
                                             <i class="fas fa-search"></i>
                                         </span>
                                     </div>
                                     <div class="appliance-list"></div>
-
+                                    <div class="selection-container"></div>
                                 </div>
                             </div>
                         </div>
@@ -90,13 +91,14 @@
                                 </button>
                                 <div class="dropdown-content">
                                     <div class="search-container-filter">
-                                        <input type="text" class="search-input padding" />
+                                        <input type="text" class="search-input-ustensile padding" placeholder="Rechercher un ustensile" />
                                         <span class="search-icons">
                                             <i class="fas fa-times clearSearch"></i>
                                             <i class="fas fa-search"></i>
                                         </span>
                                     </div>
                                     <div class="utensil-list"></div>
+                                    <div class="selection-container"></div>
                                 </div>
                             </div>
                         </div>
@@ -112,11 +114,10 @@
         
     </main>
 </body>
-<script src="index.js"></script>
+<script src="cartes/index.js"> </script>
 <script src="filtres/ustensiles.js"></script>
 <script src="filtres/appareils.js"></script>
 <script src="filtres/ingredients.js"></script>
 <script src="filtres/btnFiltre.js"></script>
-<script src="cartes/carte.js"> </script>
 
 </html>

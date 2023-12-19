@@ -16,30 +16,33 @@ chevrons.forEach((chevron) => {
 
 document.addEventListener('DOMContentLoaded', function () {
     const clearSearchButtons = document.querySelectorAll('.clearSearch');
-    const searchInputs = document.querySelectorAll('.search-input');
-
-    resetRecipeList();
 
     clearSearchButtons.forEach(function (clearSearchButton) {
         clearSearchButton.addEventListener('click', function () {
-            const searchInput = clearSearchButton.closest('.search-container-filter').querySelector('.search-input');
-            if (searchInput) {
-                searchInput.value = '';
+            const searchContainer = clearSearchButton.closest('.search-container, .search-container-filter');
+            if (searchContainer) {
+                const searchInputs = searchContainer.querySelectorAll('.search-input-ingredient, .search-input-appareil, .search-input-ustensile, .searchHeader');
+                searchInputs.forEach(function (searchInput) {
+                    searchInput.value = "";
+                });
                 resetRecipeList();
             }
         });
     });
 
+    const searchInputs = document.querySelectorAll('.search-input-ingredient, .search-input-appareil, .search-input-ustensile, .searchHeader');
+
     searchInputs.forEach(function (searchInput) {
         searchInput.addEventListener('input', function () {
             const inputValue = this.value.trim().toLowerCase();
-            
+
             if (inputValue.length === 0) {
                 resetRecipeList();
             }
         });
     });
 });
+
 function resetRecipeList() {
     recipesSection.innerHTML = "";
     document.getElementById("nombreRecettes").innerHTML = recipes.length;
@@ -48,4 +51,8 @@ function resetRecipeList() {
         const recipeElement = createCartRecipe(recipe);
         recipesSection.appendChild(recipeElement);
     });
+
+    updateUstensilList(recipes);
+    updateIngredientList(recipes);
+    updateApplianceList(recipes);
 }
