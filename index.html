@@ -43,14 +43,16 @@
                                 </button>
                                 <div class="dropdown-content">
                                     <div class="search-container-filter">
-                                        <input type="text" class="search-input-ingredient padding" placeholder="Rechercher un ingredient" />
+                                        <input type="text" class="search-input-ingredient padding"
+                                            placeholder="Rechercher un ingredient" />
                                         <span class="search-icons">
                                             <i class="fas fa-times clearSearch"></i>
                                             <i class="fas fa-search"></i>
                                         </span>
                                     </div>
                                     <div class="ingredient-list"></div>
-                                <div class="selection-container"></div>
+                                    <div class="selected-ingredient"></div>
+                                    <div class="selection-container"></div>
                                 </div>
                             </div>
                         </div>
@@ -67,13 +69,15 @@
                                 </button>
                                 <div class="dropdown-content">
                                     <div class="search-container-filter">
-                                        <input type="text" class="search-input-appareil padding" placeholder="Rechercher un appareil" />
+                                        <input type="text" class="search-input-appareil padding"
+                                            placeholder="Rechercher un appareil" />
                                         <span class="search-icons">
                                             <i class="fas fa-times clearSearch"></i>
                                             <i class="fas fa-search"></i>
                                         </span>
                                     </div>
                                     <div class="appliance-list"></div>
+                                    <div class="selected-appliance"></div>
                                     <div class="selection-container"></div>
                                 </div>
                             </div>
@@ -91,13 +95,15 @@
                                 </button>
                                 <div class="dropdown-content">
                                     <div class="search-container-filter">
-                                        <input type="text" class="search-input-ustensile padding" placeholder="Rechercher un ustensile" />
+                                        <input type="text" class="search-input-ustensile padding"
+                                            placeholder="Rechercher un ustensile" />
                                         <span class="search-icons">
                                             <i class="fas fa-times clearSearch"></i>
                                             <i class="fas fa-search"></i>
                                         </span>
                                     </div>
                                     <div class="utensil-list"></div>
+                                    <div class="selected-utensil"></div>
                                     <div class="selection-container"></div>
                                 </div>
                             </div>
@@ -107,17 +113,19 @@
             </div>
             <h2 class="margin"><span id="nombreRecettes">1500</span> recettes</h2>
         </div>
-        
+        <section>
+            <div class="selected-ingredients-container"></div>
+
+        </section>
+
         <section>
             <div class="bagrndcarte gap"></div>
         </section>
-        
+
     </main>
+    <script src="cartes/index.js"></script>
+    <script src="filtres/filtres.js"></script>
+    <script src="filtres/btnFiltre.js"></script>
 </body>
-<script src="cartes/index.js"> </script>
-<script src="filtres/ustensiles.js"></script>
-<script src="filtres/appareils.js"></script>
-<script src="filtres/ingredients.js"></script>
-<script src="filtres/btnFiltre.js"></script>
 
 </html>

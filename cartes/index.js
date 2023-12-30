@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(response => response.json())
         .then(jsonData => {
             recipes = jsonData;
-            document.getElementById("nombreRecettes").innerHTML = recipes.length;
+            document.getElementById("nombreRecettes").innerHTML = recipes.length 
 
             // Parcourir chaque recette dans le fichier JSON
             jsonData.forEach(recipe => {

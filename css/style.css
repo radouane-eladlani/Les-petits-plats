@@ -260,11 +260,21 @@
 .filter-option-style{
     cursor: pointer;
     padding-left: 20px;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    margin: 0px;
+    padding-bottom: 1px;
+    padding-top: 1px;
 }
-.filter-option-style:hover {
+
+.selected-yellow {
+    font-weight: bold;
+    position: relative;
+}
+.selected-yellow {
     background-color: yellow;
 }
 
+.remove-button-selected {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}
