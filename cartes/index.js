@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(response => response.json())
         .then(jsonData => {
             recipes = jsonData;
-            document.getElementById("nombreRecettes").innerHTML = recipes.length 
+            document.getElementById("nombreRecettes").innerHTML = recipes.length
 
             // Parcourir chaque recette dans le fichier JSON
             jsonData.forEach(recipe => {
@@ -27,7 +27,7 @@ document.querySelector(".search__button").addEventListener("click", function () 
     const input = document.getElementById("recherche").value.toLowerCase();
     recipesSection.innerHTML = "";
     let nombre = 0;
-    const recettesCorrespondantes = [];
+    let recettesCorrespondantes = [];
 
     recipes.forEach(recipe => {
         const nomEnMinuscules = recipe.name.toLowerCase();
@@ -36,14 +36,13 @@ document.querySelector(".search__button").addEventListener("click", function () 
         if (
             nomEnMinuscules.includes(input) ||
             (recipe.ingredients && recipe.ingredients.some(ingredient => ingredient.ingredient.toLowerCase().includes(input))) ||
-            (recipe.ustensils && recipe.ustensils.some(utensil => utensil.toLowerCase().includes(input))) ||
-            descriptionEnMinuscules.includes(input) ||
-            recipe.appliance.toLowerCase().includes(input)
-        ) {
+            descriptionEnMinuscules.includes(input)
+    ) {
             recettesCorrespondantes.push(recipe);
             nombre++;
         }
     });
+    console.log(recettesCorrespondantes);
 
     document.getElementById("nombreRecettes").innerHTML = nombre;
 
@@ -64,6 +63,7 @@ function createCartRecipe(recipe) {
     recipeElement.innerHTML = `
             <div class="border">
                 <img src="assets/photosRecettes/${recipe.image}" alt="${recipe.name}" class="recipe-image">
+                <span class="recipe-time">${recipe.time} min</span>
             </div>
             <div class="recipe-content">
                 <h2>${recipe.name}</h2>

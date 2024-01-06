@@ -47,6 +47,17 @@
     height: 47px;
     position: absolute;
     margin: 10px;
+    cursor: pointer;
+
+}
+
+.search__button:active {
+    background-color: yellow;
+    cursor: pointer;
+}
+
+.search__button:active i.fa-magnifying-glass {
+    color: #000000; 
 }
 .positionClear{
     position: absolute;
@@ -168,6 +179,7 @@
     min-height: 315px;
     margin-top: -7px;
     z-index: 1;
+    position: relative;
 }
 
 .rotate {
@@ -223,7 +235,10 @@
     border-radius: 25px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-
+.border {
+    border-radius: 25px 25px 0px 0px;
+    position: relative;
+}
 .recipe-content {
     padding: 20px;
 }
@@ -233,8 +248,21 @@
     max-height: 300px; 
     object-fit: cover;
     border-radius: 25px 25px 0px 0px;
+    position: relative;
 }
 
+.recipe-time {
+    background-color: yellow;
+    border-radius: 30px;
+    color: black;
+    padding: 5px 10px;
+    text-align: center;
+    font-family: "DM Sans", sans-serif;
+    font-size: 10px;
+    position: absolute;
+    top: 20px; 
+    right: 20px; 
+}
 .ingredients-list {
     list-style-type: none;
     padding: 0;
@@ -274,7 +302,26 @@
 
 .remove-button-selected {
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 20px;
+    right: 10px;
     cursor: pointer;
+}
+
+.remove-button {
+    cursor: pointer;
+    color: #000000;
+}
+
+.selected-item {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: yellow;
+    color: #000000; 
+    border-radius: 10px; 
+    margin-top: 15px;
+    width: 65%;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
