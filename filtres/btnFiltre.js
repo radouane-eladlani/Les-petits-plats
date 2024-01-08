@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 searchInputs.forEach(function (searchInput) {
                     searchInput.value = "";
                 });
-                resetRecipeList();
+                resetRecipeList(recipes);
             }
         });
     });
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const inputValue = this.value.trim().toLowerCase();
 
             if (inputValue.length === 0) {
-                resetRecipeList();
+                resetRecipeList(recipes);
             }
         });
     });
@@ -55,4 +55,5 @@ function resetRecipeList() {
     updateUstensilList(recipes);
     updateIngredientList(recipes);
     updateApplianceList(recipes);
+    
 }
