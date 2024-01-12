@@ -25,7 +25,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 searchInputs.forEach(function (searchInput) {
                     searchInput.value = "";
                 });
-                resetRecipeList(recipes);
+
+                if (searchContainer.classList.contains('search-container')) {
+                    resetRecipeList(recipes);
+                }
             }
         });
     });
@@ -37,7 +40,10 @@ document.addEventListener('DOMContentLoaded', function () {
             const inputValue = this.value.trim().toLowerCase();
 
             if (inputValue.length === 0) {
-                resetRecipeList(recipes);
+                const searchContainer = this.closest('.search-container, .search-container-filter');
+                if (searchContainer && searchContainer.classList.contains('search-container')) {
+                    resetRecipeList(recipes);
+                }
             }
         });
     });
@@ -55,5 +61,4 @@ function resetRecipeList() {
     updateUstensilList(recipes);
     updateIngredientList(recipes);
     updateApplianceList(recipes);
-    
 }

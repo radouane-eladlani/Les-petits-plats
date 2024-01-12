@@ -24,7 +24,13 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 document.querySelector(".search__button").addEventListener("click", function () {
-    const input = document.getElementById("recherche").value.toLowerCase();
+    const input = document.getElementById("recherche").value.trim().toLowerCase();
+
+    if (input.length < 3) {
+        console.log("Veuillez saisir au moins 3 caractères pour la recherche.");
+        return;
+    }
+
     recipesSection.innerHTML = "";
     let nombre = 0;
     let recettesCorrespondantes = [];
@@ -37,11 +43,12 @@ document.querySelector(".search__button").addEventListener("click", function () 
             nomEnMinuscules.includes(input) ||
             (recipe.ingredients && recipe.ingredients.some(ingredient => ingredient.ingredient.toLowerCase().includes(input))) ||
             descriptionEnMinuscules.includes(input)
-    ) {
+        ) {
             recettesCorrespondantes.push(recipe);
             nombre++;
         }
     });
+
     console.log(recettesCorrespondantes);
 
     document.getElementById("nombreRecettes").innerHTML = nombre;
@@ -61,29 +68,28 @@ function createCartRecipe(recipe) {
     recipeElement.classList.add('recipe-container');
 
     recipeElement.innerHTML = `
-            <div class="border">
-                <img src="assets/photosRecettes/${recipe.image}" alt="${recipe.name}" class="recipe-image">
-                <span class="recipe-time">${recipe.time} min</span>
-            </div>
-            <div class="recipe-content">
-                <h2>${recipe.name}</h2>
-                <h3>RECETTE</h3>
-                <p>${recipe.description}</p>
-    
-                <h3>INGRÉDIENTS</h3>
-                <div class="ingredients-list">
-                    ${recipe.ingredients.map(ingredient => `
-                        <div>
-                            <span>${ingredient.ingredient}</span>
-                            <div>
-                                ${ingredient.quantity ? `<span>${ingredient.quantity}</span>` : ''}
-                                ${ingredient.unit ? `<span>${ingredient.unit}</span>` : ''}
-                            </div>
-                        </div>
-                    `).join('')}
-                </div>
-            </div>
-    `;
-    return recipeElement
-}
+        <div class="border">
+            <img src="assets/photosRecettes/${recipe.image}" alt="${recipe.name}" class="recipe-image">
+            <span class="recipe-time">${recipe.time} min</span>
+        </div>
+        <div class="recipe-content">
+            <h2>${recipe.name}</h2>
+            <h3>RECETTE</h3>
+            <p>${recipe.description}</p>
 
+            <h3>INGRÉDIENTS</h3>
+            <div class="ingredients-list">
+                ${recipe.ingredients.map(ingredient => `
+                    <div>
+                        <span>${ingredient.ingredient}</span>
+                        <div>
+                            ${ingredient.quantity ? `<span>${ingredient.quantity}</span>` : ''}
+                            ${ingredient.unit ? `<span>${ingredient.unit}</span>` : ''}
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `;
+    return recipeElement;
+}
