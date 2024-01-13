@@ -21,10 +21,12 @@ document.addEventListener('DOMContentLoaded', function () {
         clearSearchButton.addEventListener('click', function () {
             const searchContainer = clearSearchButton.closest('.search-container, .search-container-filter');
             if (searchContainer) {
-                const searchInputs = searchContainer.querySelectorAll('.search-input-ingredient, .search-input-appareil, .search-input-ustensile, .searchHeader');
-                searchInputs.forEach(function (searchInput) {
+                const searchInput = searchContainer.querySelector('#recherche');
+                if (searchInput) {
                     searchInput.value = "";
-                });
+                    hideClearIcon(clearSearchButton);
+                    showSearchIcon(searchContainer.querySelector('.fa-search'));
+                }
 
                 if (searchContainer.classList.contains('search-container')) {
                     resetRecipeList(recipes);
@@ -33,31 +35,58 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    const searchInputs = document.querySelectorAll('.search-input-ingredient, .search-input-appareil, .search-input-ustensile, .searchHeader');
+    const filterInputs = document.querySelectorAll('.search-input-ingredient, .search-input-appareil, .search-input-ustensile');
 
-    searchInputs.forEach(function (searchInput) {
-        searchInput.addEventListener('input', function () {
+    filterInputs.forEach(function (filterInput) {
+        const searchContainer = filterInput.closest('.search-container-filter');
+        const clearIcon = searchContainer.querySelector('.search-icons .fa-times');
+        const searchIcon = searchContainer.querySelector('.search-icons .fa-search');
+
+        filterInput.addEventListener('input', function () {
             const inputValue = this.value.trim().toLowerCase();
 
-            if (inputValue.length === 0) {
-                const searchContainer = this.closest('.search-container, .search-container-filter');
-                if (searchContainer && searchContainer.classList.contains('search-container')) {
-                    resetRecipeList(recipes);
-                }
+            if (inputValue.length > 0) {
+                showClearIcon(clearIcon);
+            } else {
+                hideClearIcon(clearIcon);
             }
         });
+
+        clearIcon.addEventListener('click', function () {
+            filterInput.value = "";
+            hideClearIcon(clearIcon);
+            showSearchIcon(searchIcon);
+            resetFilterList();
+        });
+
+        showSearchIcon(searchIcon);
+        hideClearIcon(clearIcon);
     });
 });
 
+function showClearIcon(clearIcon) {
+    clearIcon.style.display = 'inline';
+}
+
+function hideClearIcon(clearIcon) {
+    clearIcon.style.display = 'none';
+}
+
+function showSearchIcon(searchIcon) {
+    if (searchIcon) {
+        searchIcon.style.display = 'inline';
+    }
+}
+
+function hideSearchIcon(searchIcon) {
+    searchIcon.style.display = 'inline';
+}
+
+
 function resetRecipeList() {
-    recipesSection.innerHTML = "";
-    document.getElementById("nombreRecettes").innerHTML = recipes.length;
-
-    recipes.forEach(recipe => {
-        const recipeElement = createCartRecipe(recipe);
-        recipesSection.appendChild(recipeElement);
-    });
-
+    filterRecipesByfilters();
+}
+function resetFilterList() {
     updateUstensilList(recipes);
     updateIngredientList(recipes);
     updateApplianceList(recipes);

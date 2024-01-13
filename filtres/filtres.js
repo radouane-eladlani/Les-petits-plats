@@ -10,15 +10,14 @@ let originalUstensilList = [];
 const selectedFiltersSection = document.querySelector('.selected-filters-section');
 let currentSearchState = '';
 
-
 document.querySelector('.search-input-ingredient').addEventListener('input', () => {
-    updateIngredientList(recipes);
+    updateIngredientList(filterRecipes);
 });
 document.querySelector('.search-input-ustensile').addEventListener('input', () => {
-    updateUstensilList(recipes);
+    updateUstensilList(filterRecipes);
 });
 document.querySelector('.search-input-appareil').addEventListener('input', () => {
-    updateApplianceList(recipes);
+    updateApplianceList(filterRecipes);
 });
 
 function updateIngredientList(recipes) {
@@ -91,7 +90,7 @@ function toggleOnIngredient(ingredient, ingredientItem) {
         } else {
             selectedIngredients.add(ingredient);
         }
-        filterRecipesByfilters(recipes);
+        filterRecipesByfilters();
     });
 }
 
@@ -110,7 +109,7 @@ function createSelectedIngredientItem(ingredient) {
     removeButton.style.fontSize = "large";
     removeButton.addEventListener('click', () => {
         selectedIngredients.delete(ingredient);
-        filterRecipesByfilters(recipes);
+        filterRecipesByfilters();
     });
     selectedIngredientItem.appendChild(removeButton);
 
@@ -185,7 +184,7 @@ function toggleOnUstensil(ustensil, utensilItem) {
             selectedUstensils.add(ustensil);
         }
 
-        filterRecipesByfilters(recipes);
+        filterRecipesByfilters();
     });
 }
 
@@ -204,7 +203,7 @@ function createSelectedUstensilItem(ustensil) {
     removeButton.style.fontSize = "large";
     removeButton.addEventListener('click', () => {
         selectedUstensils.delete(ustensil);
-        filterRecipesByfilters(recipes);
+        filterRecipesByfilters();
     });
     selectedUstensilItem.appendChild(removeButton);
 
@@ -276,7 +275,7 @@ function toggleOnAppliance(appliance, applianceItem) {
             selectedAppliances.add(appliance);
         }
 
-        filterRecipesByfilters(recipes);
+        filterRecipesByfilters();
 
     });
 }
@@ -296,7 +295,7 @@ function createSelectedApplianceItem(appliance) {
     removeButton.style.fontSize = "large";
     removeButton.addEventListener('click', () => {
         selectedAppliances.delete(appliance);
-        filterRecipesByfilters(recipes);
+        filterRecipesByfilters();
     });
     selectedApplianceItem.appendChild(removeButton);
 
@@ -315,16 +314,30 @@ function createRemoveButton() {
     return removeButton;
 }
 
-function filterRecipesByfilters(recipes) {
-    const filteredRecipes = recipes.filter(recipe => {
+function filterRecipesByfilters() {
+    const input = document.getElementById("recherche").value.trim().toLowerCase();
+    let recettesCorrespondantes = [];
+
+    recipes.forEach(recipe => {
+        const nomEnMinuscules = recipe.name.toLowerCase();
+        const descriptionEnMinuscules = recipe.description.toLowerCase();
+
+        if (
+            nomEnMinuscules.includes(input) ||
+            (recipe.ingredients && recipe.ingredients.some(ingredient => ingredient.ingredient.toLowerCase().includes(input))) ||
+            descriptionEnMinuscules.includes(input)
+        ) {
+            recettesCorrespondantes.push(recipe);
+        }
+    });
+    const filteredRecipes = recettesCorrespondantes.filter(recipe => {
         return (
             recipeContainsAllIngredients(recipe) &&
             recipeContainsAllUstensils(recipe) &&
-            recipeContainsAllAppliances(recipe) &&
-            recipeMatchesSearch(recipe)
+            recipeContainsAllAppliances(recipe)
         );
     });
-
+    filterRecipes = filteredRecipes;
     updateRecipes(filteredRecipes);
 }
 function recipeMatchesSearch(recipe) {

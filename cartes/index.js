@@ -1,4 +1,5 @@
 let recipes = [];
+let filterRecipes = [];
 const recipesSection = document.querySelector('.bagrndcarte');
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -6,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(response => response.json())
         .then(jsonData => {
             recipes = jsonData;
+            filterRecipes = recipes;
             document.getElementById("nombreRecettes").innerHTML = recipes.length
 
             // Parcourir chaque recette dans le fichier JSON
@@ -30,37 +32,7 @@ document.querySelector(".search__button").addEventListener("click", function () 
         console.log("Veuillez saisir au moins 3 caractères pour la recherche.");
         return;
     }
-
-    recipesSection.innerHTML = "";
-    let nombre = 0;
-    let recettesCorrespondantes = [];
-
-    recipes.forEach(recipe => {
-        const nomEnMinuscules = recipe.name.toLowerCase();
-        const descriptionEnMinuscules = recipe.description.toLowerCase();
-
-        if (
-            nomEnMinuscules.includes(input) ||
-            (recipe.ingredients && recipe.ingredients.some(ingredient => ingredient.ingredient.toLowerCase().includes(input))) ||
-            descriptionEnMinuscules.includes(input)
-        ) {
-            recettesCorrespondantes.push(recipe);
-            nombre++;
-        }
-    });
-
-    console.log(recettesCorrespondantes);
-
-    document.getElementById("nombreRecettes").innerHTML = nombre;
-
-    recettesCorrespondantes.forEach(recipe => {
-        const elementRecette = createCartRecipe(recipe);
-        recipesSection.appendChild(elementRecette);
-    });
-
-    updateIngredientList(recettesCorrespondantes);
-    updateApplianceList(recettesCorrespondantes);
-    updateUstensilList(recettesCorrespondantes);
+ filterRecipesByfilters();
 });
 
 function createCartRecipe(recipe) {
