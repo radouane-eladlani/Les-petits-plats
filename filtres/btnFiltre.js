@@ -14,6 +14,7 @@ chevrons.forEach((chevron) => {
     });
 });
 
+
 document.addEventListener('DOMContentLoaded', function () {
     const clearSearchButtons = document.querySelectorAll('.clearSearch');
 
@@ -21,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
         clearSearchButton.addEventListener('click', function () {
             const searchContainer = clearSearchButton.closest('.search-container, .search-container-filter');
             if (searchContainer) {
-                const searchInput = searchContainer.querySelector('#recherche');
+                const searchInput = searchContainer.querySelector('.searchHeader');
                 if (searchInput) {
                     searchInput.value = "";
                     hideClearIcon(clearSearchButton);
@@ -29,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
 
                 if (searchContainer.classList.contains('search-container')) {
-                    resetRecipeList(recipes);
+                    resetRecipeList();
                 }
             }
         });
@@ -69,7 +70,11 @@ function showClearIcon(clearIcon) {
 }
 
 function hideClearIcon(clearIcon) {
-    clearIcon.style.display = 'none';
+    const isFilterIcon = clearIcon.closest('.search-container-filter') !== null;
+
+    if (isFilterIcon) {
+        clearIcon.style.display = 'none';
+    }
 }
 
 function showSearchIcon(searchIcon) {
@@ -77,11 +82,6 @@ function showSearchIcon(searchIcon) {
         searchIcon.style.display = 'inline';
     }
 }
-
-function hideSearchIcon(searchIcon) {
-    searchIcon.style.display = 'inline';
-}
-
 
 function resetRecipeList() {
     filterRecipesByfilters();

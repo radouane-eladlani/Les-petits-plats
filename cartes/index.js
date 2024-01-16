@@ -29,7 +29,6 @@ document.querySelector(".search__button").addEventListener("click", function () 
     const input = document.getElementById("recherche").value.trim().toLowerCase();
 
     if (input.length < 3) {
-        console.log("Veuillez saisir au moins 3 caractères pour la recherche.");
         return;
     }
  filterRecipesByfilters();
