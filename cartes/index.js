@@ -11,10 +11,11 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById("nombreRecettes").innerHTML = recipes.length
 
             // Parcourir chaque recette dans le fichier JSON
-            jsonData.forEach(recipe => {
-                const recipeElement = createCartRecipe(recipe);
-                recipesSection.appendChild(recipeElement);
-            });
+            for (let i = 0; i < jsonData.length; i++) {
+    const recipe = jsonData[i];
+    const recipeElement = createCartRecipe(recipe);
+    recipesSection.appendChild(recipeElement);
+}
 
             // Appeler les fonctions pour mettre à jour les listes
             updateIngredientList(recipes);
@@ -39,6 +40,33 @@ function createCartRecipe(recipe) {
     const recipeElement = document.createElement('div');
     recipeElement.classList.add('recipe-container');
 
+    const ingredientsList = document.createElement('div');
+    ingredientsList.classList.add('ingredients-list');
+
+    for (let i = 0; i < recipe.ingredients.length; i++) {
+        const ingredient = recipe.ingredients[i];
+        const ingredientElement = document.createElement('div');
+
+        const ingredientName = document.createElement('span');
+        ingredientName.textContent = ingredient.ingredient;
+        ingredientElement.appendChild(ingredientName);
+
+        const quantityAndUnit = document.createElement('div');
+        if (ingredient.quantity) {
+            const quantitySpan = document.createElement('span');
+            quantitySpan.textContent = ingredient.quantity;
+            quantityAndUnit.appendChild(quantitySpan);
+        }
+        if (ingredient.unit) {
+            const unitSpan = document.createElement('span');
+            unitSpan.textContent = ingredient.unit;
+            quantityAndUnit.appendChild(unitSpan);
+        }
+        ingredientElement.appendChild(quantityAndUnit);
+
+        ingredientsList.appendChild(ingredientElement);
+    }
+
     recipeElement.innerHTML = `
         <div class="border">
             <img src="assets/photosRecettes/${recipe.image}" alt="${recipe.name}" class="recipe-image">
@@ -50,18 +78,9 @@ function createCartRecipe(recipe) {
             <p>${recipe.description}</p>
 
             <h3>INGRÉDIENTS</h3>
-            <div class="ingredients-list">
-                ${recipe.ingredients.map(ingredient => `
-                    <div>
-                        <span>${ingredient.ingredient}</span>
-                        <div>
-                            ${ingredient.quantity ? `<span>${ingredient.quantity}</span>` : ''}
-                            ${ingredient.unit ? `<span>${ingredient.unit}</span>` : ''}
-                        </div>
-                    </div>
-                `).join('')}
-            </div>
+            ${ingredientsList.outerHTML}
         </div>
     `;
+
     return recipeElement;
 }
