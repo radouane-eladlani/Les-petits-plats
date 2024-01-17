@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
 
                 if (searchContainer.classList.contains('search-container')) {
+                    // eslint-disable-next-line no-undef
                     resetRecipeList(recipes);
                 }
             }
@@ -82,9 +83,6 @@ function showSearchIcon(searchIcon) {
     }
 }
 
-function hideSearchIcon(searchIcon) {
-    searchIcon.style.display = 'inline';
-}
 
 function resetRecipeList() {
     filterRecipesByfilters();

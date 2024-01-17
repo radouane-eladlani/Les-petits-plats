@@ -7,8 +7,6 @@ const selectedUstensils = new Set();
 let originalIngredientList = [];
 let originalApplianceList = [];
 let originalUstensilList = [];
-const selectedFiltersSection = document.querySelector('.selected-filters-section');
-let currentSearchState = '';
 
 document.querySelector('.search-input-ingredient').addEventListener('input', () => {
     updateIngredientList(filterRecipes);
@@ -46,7 +44,7 @@ function updateIngredientList(recipes) {
         ingredientListSelect.appendChild(ingredientItem);
 
         toggleOnIngredient(ingredient, ingredientItem);
-    };
+    }
 
     // Récupérer tous les ingrédients
     for (let i = 0; i < recipes.length; i++) {
@@ -260,7 +258,7 @@ function updateApplianceList(recipes) {
             applianceItem.classList.add('filter-option-style');
             applianceListSelect.appendChild(applianceItem);
         }
-    };
+    }
     if (originalApplianceList.length === 0) {
         originalApplianceList = Array.from(applianceListSelect.children);
     }
@@ -384,9 +382,6 @@ function updateRecipes(filteredRecipes) {
         const elementRecette = createCartRecipe(recipe);
         recipesSection.appendChild(elementRecette);
     }
-
-    currentSearchState = document.getElementById("recherche").value.toLowerCase();
-
     updateIngredientList(filteredRecipes);
     updateApplianceList(filteredRecipes);
     updateUstensilList(filteredRecipes);

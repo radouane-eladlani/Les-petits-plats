@@ -1,4 +1,5 @@
 let recipes = [];
+// eslint-disable-next-line no-unused-vars
 let filterRecipes = [];
 const recipesSection = document.querySelector('.bagrndcarte');
 
@@ -12,14 +13,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Parcourir chaque recette dans le fichier JSON
             for (let i = 0; i < jsonData.length; i++) {
-    const recipe = jsonData[i];
-    const recipeElement = createCartRecipe(recipe);
-    recipesSection.appendChild(recipeElement);
-}
+                const recipe = jsonData[i];
+                const recipeElement = createCartRecipe(recipe);
+                recipesSection.appendChild(recipeElement);
+            }
 
             // Appeler les fonctions pour mettre à jour les listes
+            // eslint-disable-next-line no-undef
             updateIngredientList(recipes);
+            // eslint-disable-next-line no-undef
             updateApplianceList(recipes);
+            // eslint-disable-next-line no-undef
             updateUstensilList(recipes);
         })
         .catch(error => console.error('Erreur lors de la récupération des données :', error));
@@ -33,7 +37,8 @@ document.querySelector(".search__button").addEventListener("click", function () 
         console.log("Veuillez saisir au moins 3 caractères pour la recherche.");
         return;
     }
- filterRecipesByfilters();
+    // eslint-disable-next-line no-undef
+    filterRecipesByfilters();
 });
 
 function createCartRecipe(recipe) {
