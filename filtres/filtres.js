@@ -7,7 +7,6 @@ const selectedUstensils = new Set();
 let originalIngredientList = [];
 let originalApplianceList = [];
 let originalUstensilList = [];
-let currentSearchState = '';
 
 document.querySelector('.search-input-ingredient').addEventListener('input', () => {
     updateIngredientList(filterRecipes);
@@ -380,8 +379,6 @@ function updateRecipes(filteredRecipes) {
         const elementRecette = createCartRecipe(recipe);
         recipesSection.appendChild(elementRecette);
     });
-
-    currentSearchState = document.getElementById("recherche").value.toLowerCase();
 
     updateIngredientList(filteredRecipes);
     updateApplianceList(filteredRecipes);
