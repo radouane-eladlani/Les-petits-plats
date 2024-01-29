@@ -1,14 +1,25 @@
+/* allIngredients new set pour l'ensemble des ingredients */
 const allIngredients = new Set();
+/* allUstensiles new set pour l'ensemble des appareils */
 const allUstensiles = new Set();
+/* allAppareils new set pour l'ensemble des ustensiles */
 const allAppareils = new Set();
+/* selectedIngredients new set pour l'ensemble des ingredients selectionnés */
 const selectedIngredients = new Set();
+/* selectedAppliances new set pour l'ensemble des appareils selectionnés */
 const selectedAppliances = new Set();
+/* selectedUstensils new set pour l'ensemble des ustensiles selectionnés */
 const selectedUstensils = new Set();
+/* declare une variable tableau qui contient ingredient */
 let originalIngredientList = [];
+/* declare une variable tableau qui contient appareil */
 let originalApplianceList = [];
+/* declare une variable tableau qui contient ustensile */
 let originalUstensilList = [];
 
-document.querySelector('.search-input-ingredient').addEventListener('input', () => {
+/* J'ajoute un écouteur d'évenement 'input' sur chaque champ de recherches (ingredient, ustensil et appareil) qui appele
+leur fonctions chacune pour mettre à jour les données 'originalXXXList */
+ document.querySelector('.search-input-ingredient').addEventListener('input', () => {
     updateIngredientList(filterRecipes);
 });
 document.querySelector('.search-input-ustensile').addEventListener('input', () => {
@@ -18,6 +29,8 @@ document.querySelector('.search-input-appareil').addEventListener('input', () =>
     updateApplianceList(filterRecipes);
 });
 
+/* fonction updateIngredientList pour mettre à jour la liste des ingredients et 
+aussi les filtres après la recherche de l'utilisateur */
 function updateIngredientList(recipes) {
     const ingredientListSelect = document.querySelector('.ingredient-list');
     const searchInput = document.querySelector('.search-input-ingredient');
@@ -25,7 +38,9 @@ function updateIngredientList(recipes) {
     const selectionIngredientDiv = document.querySelector('.selection-ingredient');
     selectionIngredientDiv.innerHTML = "";
     ingredientListSelect.innerHTML = "";
+    /* allIngredients.clear vider l'ensemble des ingredients pour préparer la nouvelle liste d'ingredients */
     allIngredients.clear();
+    /* forEach sur les ingredients selectionnés */
     selectedIngredients.forEach(ingredient => {
         const ingredientItem = document.createElement('div');
         ingredientItem.classList.add('ingredient-item');
@@ -34,6 +49,8 @@ function updateIngredientList(recipes) {
         ingredientItem.classList.add('selected-yellow');
         ingredientItem.classList.add('filter-option-style');
         ingredientItem.appendChild(ingredientText);
+
+        // créer un bouton pour les désélectionnés
         const removeButton = createRemoveButton();
         ingredientItem.appendChild(removeButton);
 
@@ -43,13 +60,13 @@ function updateIngredientList(recipes) {
         ingredientListSelect.appendChild(ingredientItem);
 
         toggleOnIngredient(ingredient, ingredientItem);
-
     })
 
     // Récupérer tous les ingrédients
     recipes.forEach(recipe => {
         let ingredients = recipe.ingredients;
         ingredients.forEach(ingredient => {
+            // Si l'ingrédient de la recette n'est pas dans la liste d'ingrédients séléctionnés on l'ajoute dans les éléments à afficher normalement (sans surlignement)
             if (!selectedIngredients.has(ingredient.ingredient.toLowerCase())) {
                 const lowerCaseIngredient = ingredient.ingredient.toLowerCase();
                 allIngredients.add(lowerCaseIngredient);
@@ -57,7 +74,9 @@ function updateIngredientList(recipes) {
         });
     });
 
+    /* on fait une boucle for pour afficher les ingrédients en fontion de la recherche de l'utilisateur */
     for (const ingredient of allIngredients) {
+        /* si la recherche de l'utilisateur correspond à l'ingrédient, on l'affiche dans la liste déroulante des ingrédients */
         if (ingredient.includes(searchKeyword)) {
             const ingredientItem = document.createElement('div');
             ingredientItem.classList.add('ingredient-item');
@@ -69,15 +88,11 @@ function updateIngredientList(recipes) {
 
             ingredientItem.classList.add('filter-option-style');
             ingredientListSelect.appendChild(ingredientItem);
-
         }
     }
-    if (originalIngredientList.length === 0) {
-        originalIngredientList = Array.from(ingredientListSelect.children);
-    }
-
 }
 
+/* fonction toggleOnIngredient pour ajouter ou supprimer l'ingrédient de la liste des ingredients selectionnés au click sur l'ingrédient */
 function toggleOnIngredient(ingredient, ingredientItem) {
 
     ingredientItem.addEventListener('click', () => {
@@ -92,6 +107,7 @@ function toggleOnIngredient(ingredient, ingredientItem) {
     });
 }
 
+/* fonction createSelectedIngredientItem pour afficher l'ingrédient selectionné */
 function createSelectedIngredientItem(ingredient) {
     const selectedIngredientItem = document.createElement('div');
     selectedIngredientItem.classList.add('selected-item');
@@ -105,6 +121,7 @@ function createSelectedIngredientItem(ingredient) {
     removeButton.style.background = "none";
     removeButton.style.border = "none";
     removeButton.style.fontSize = "large";
+    //ajout de de l'évenement suppression on click
     removeButton.addEventListener('click', () => {
         selectedIngredients.delete(ingredient);
         filterRecipesByfilters();
@@ -114,6 +131,8 @@ function createSelectedIngredientItem(ingredient) {
     return selectedIngredientItem;
 }
 
+/* fonction updateUstensilList pour mettre à jour la liste des ingredients et 
+aussi les filtres après la recherche de l'utilisateur */
 function updateUstensilList(recipes) {
     const ustensilListSelect = document.querySelector('.utensil-list');
     const searchInput = document.querySelector('.search-input-ustensile');
@@ -122,8 +141,10 @@ function updateUstensilList(recipes) {
     selectionUstensilDiv.innerHTML = "";
 
     ustensilListSelect.innerHTML = "";
+    /* allUstensiles.clear sert a effacer l'ensemble des ustensils */
     allUstensiles.clear();
 
+    /* forEach sur les ustensils selectionnés et deselectionnés */
     selectedUstensils.forEach(ustensil => {
         const ustensilItem = document.createElement('div');
         ustensilItem.classList.add('ustensil-item');
@@ -142,7 +163,8 @@ function updateUstensilList(recipes) {
 
         toggleOnUstensil(ustensil, ustensilItem);
     });
-
+    /*on fait un forEach pour afficher tous les ustensils de la liste d'origine ensuite 
+    si la recherche est faite on affiche seulement les ustensils qui contiennent la recherche de l'utilisateur */
     recipes.forEach(recipe => {
         let ustensils = recipe.ustensils;
         ustensils.forEach(ustensil => {
@@ -152,7 +174,9 @@ function updateUstensilList(recipes) {
             }
         });
     });
+    /* on fait une boucle for pour afficher les ustensils qui contiennent la recherche de l'utilisateur */
     for (const ustensil of allUstensiles) {
+            /* si l'ustensil contient la recherche de l'utilisateur on l'affiche dans la liste des ingredients */
         if (ustensil.includes(searchKeyword)) {
             const ustensilItem = document.createElement('div');
             ustensilItem.classList.add('ustensil-item');
@@ -166,12 +190,9 @@ function updateUstensilList(recipes) {
             ustensilListSelect.appendChild(ustensilItem);
         }
     }
-
-    if (originalUstensilList.length === 0) {
-        originalUstensilList = Array.from(ustensilListSelect.children);
-    }
 }
 
+/* fonction toggleOnUstensil pour ajouter ou supprimer ustensil de la liste des ustensiles selectionnés */
 function toggleOnUstensil(ustensil, utensilItem) {
     utensilItem.addEventListener('click', () => {
         const isAlreadySelected = selectedUstensils.has(ustensil);
@@ -186,6 +207,7 @@ function toggleOnUstensil(ustensil, utensilItem) {
     });
 }
 
+/* fonction createSelectedUstensilItem pour afficher l'ingrédient selectionné */
 function createSelectedUstensilItem(ustensil) {
     const selectedUstensilItem = document.createElement('div');
     selectedUstensilItem.classList.add('selected-item');
@@ -207,6 +229,9 @@ function createSelectedUstensilItem(ustensil) {
 
     return selectedUstensilItem;
 }
+
+/* fonction updateApplianceList pour mettre à jour la liste des ingredients et 
+aussi les filtres après la recherche de l'utilisateur */
 function updateApplianceList(recipes) {
     const applianceListSelect = document.querySelector('.appliance-list');
     const searchInput = document.querySelector('.search-input-appareil');
@@ -214,8 +239,10 @@ function updateApplianceList(recipes) {
     const selectionApplianceDiv = document.querySelector('.selection-appliance');
     selectionApplianceDiv.innerHTML = "";
     applianceListSelect.innerHTML = "";
+    /* allAppareils.clear sert a effacer l'ensemble des appareils */
     allAppareils.clear();
 
+        /* forEach sur les appareils selectionnés et deselectionnés */
     selectedAppliances.forEach(appliance => {
         const applianceItem = document.createElement('div');
         applianceItem.classList.add('appliance-item');
@@ -234,15 +261,16 @@ function updateApplianceList(recipes) {
 
         toggleOnAppliance(appliance, applianceItem);
     });
-
+/* on fait une boucle forEach pour afficher les appareils */
     recipes.forEach(recipe => {
         const recipeAppliance = recipe.appliance.toLowerCase();
         if (!selectedAppliances.has(recipeAppliance)) {
             allAppareils.add(recipeAppliance);
         }
     });
-
+    /* on fait une boucle for pour afficher les appareils qui contiennent la recherche de l'utilisateur */
     for (const appliance of allAppareils) {
+        /* si appareil contient la recherche de l'utilisateur on l'affiche dans la liste des ingredients */
         if (appliance.includes(searchKeyword)) {
             const applianceItem = document.createElement('div');
             applianceItem.classList.add('appliance-item');
@@ -256,13 +284,9 @@ function updateApplianceList(recipes) {
             applianceListSelect.appendChild(applianceItem);
         }
     }
-
-    if (originalApplianceList.length === 0) {
-        originalApplianceList = Array.from(applianceListSelect.children);
-    }
 }
 
-
+/* fonction toggleOnAppliance pour ajouter ou supprimer ustensil de la liste des ustensiles selectionnés */
 function toggleOnAppliance(appliance, applianceItem) {
     applianceItem.addEventListener('click', () => {
         const isAlreadySelected = selectedAppliances.has(appliance);
@@ -278,6 +302,7 @@ function toggleOnAppliance(appliance, applianceItem) {
     });
 }
 
+/* fonction createSelectedapplianceItem pour afficher l'ingrédient selectionné */
 function createSelectedApplianceItem(appliance) {
     const selectedApplianceItem = document.createElement('div');
     selectedApplianceItem.classList.add('selected-item');
@@ -300,6 +325,7 @@ function createSelectedApplianceItem(appliance) {
     return selectedApplianceItem;
 }
 
+/* fonction pour creer le bouton supprimer*/
 function createRemoveButton() {
     const removeButton = document.createElement('span');
     removeButton.classList.add('remove-button-selected');
@@ -312,22 +338,27 @@ function createRemoveButton() {
     return removeButton;
 }
 
+/* fonction filterRecipesByfilters pour filtrer les recettes en fonction de la recherche de l'utilisateur */
 function filterRecipesByfilters() {
     const input = document.getElementById("recherche").value.trim().toLowerCase();
     let recettesCorrespondantes = [];
 
+    /* on fait une boucle sur les recettes et on regarde si la recette contient la recherche de l'utilisateur */
     recipes.forEach(recipe => {
         const nomEnMinuscules = recipe.name.toLowerCase();
         const descriptionEnMinuscules = recipe.description.toLowerCase();
 
-        if (
-            nomEnMinuscules.includes(input) ||
+        // si la recipe correspondant avec la recherche de l'utilisateur on l'ajoute a la liste des recettes pour etre 
+        // filtrer plus tard avec les filtres de (ustensil, ingredient, appareil)
+        if (nomEnMinuscules.includes(input) ||
             (recipe.ingredients && recipe.ingredients.some(ingredient => ingredient.ingredient.toLowerCase().includes(input))) ||
             descriptionEnMinuscules.includes(input)
         ) {
             recettesCorrespondantes.push(recipe);
         }
     });
+
+    /* on filtre les recettes en fonction de la liste des ingredients, des ustensiles et des appareils */
     const filteredRecipes = recettesCorrespondantes.filter(recipe => {
         return (
             recipeContainsAllIngredients(recipe) &&
@@ -336,9 +367,12 @@ function filterRecipesByfilters() {
         );
     });
     filterRecipes = filteredRecipes;
+    
+    /* on met a jour la liste des recettes affichées */
     updateRecipes(filteredRecipes);
 }
 
+/* fonction sert a verifier si la recette contient tous les ingredients */
 function recipeContainsAllIngredients(recipe) {
     let i = 0;
     selectedIngredients.forEach(ingredient => {
@@ -350,6 +384,8 @@ function recipeContainsAllIngredients(recipe) {
     })
     return i === selectedIngredients.size;
 }
+
+/* fonction sert a verifier si la recette contient tous les ingredients */
 function recipeContainsAllUstensils(recipe) {
     let i = 0;
     selectedUstensils.forEach(ustensil => {
@@ -361,6 +397,8 @@ function recipeContainsAllUstensils(recipe) {
     });
     return i === selectedUstensils.size;
 }
+
+/* fonction sert a verifier si la recette contient tous les ingredients */
 function recipeContainsAllAppliances(recipe) {
     let i = 0;
     selectedAppliances.forEach(appliance => {
@@ -371,6 +409,7 @@ function recipeContainsAllAppliances(recipe) {
     return i === selectedAppliances.size;
 }
 
+/* fonction updateRecipes pour mettre à jour la liste des recettes affichées on utilise filterRecipes */
 function updateRecipes(filteredRecipes) {
     document.getElementById("nombreRecettes").innerHTML = filteredRecipes.length;
     recipesSection.innerHTML = "";

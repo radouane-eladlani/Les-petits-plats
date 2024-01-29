@@ -1,7 +1,9 @@
+/*déclare la variable recipes et filterRecipes*/
 let recipes = [];
 let filterRecipes = [];
+/*je recupere l'element du dom pour l'afficher*/
 const recipesSection = document.querySelector('.bagrndcarte');
-
+/* On fait une requête au fichier recipes.json ensuite on affiche les recettes */
 document.addEventListener('DOMContentLoaded', function () {
     fetch('data/recipes.json')
         .then(response => response.json())
@@ -24,8 +26,10 @@ document.addEventListener('DOMContentLoaded', function () {
         .catch(error => console.error('Erreur lors de la récupération des données :', error));
 
 });
-
+/* je fais un addEventListener sur le bouton de recherche  avec une condition si il y a 
+plus de 3 caracteres pour ensuite  filtrer les recettes */
 document.querySelector(".search__button").addEventListener("click", function () {
+    /* On recupere la valeur de l'input et on la met en minuscule */
     const input = document.getElementById("recherche").value.trim().toLowerCase();
 
     if (input.length < 3) {
@@ -33,7 +37,7 @@ document.querySelector(".search__button").addEventListener("click", function () 
     }
  filterRecipesByfilters();
 });
-
+/*Fonction pour creer les cartes des recettes */
 function createCartRecipe(recipe) {
     const recipeElement = document.createElement('div');
     recipeElement.classList.add('recipe-container');
@@ -50,6 +54,7 @@ function createCartRecipe(recipe) {
 
             <h3>INGRÉDIENTS</h3>
             <div class="ingredients-list">
+            /* afficher les ingredients */
                 ${recipe.ingredients.map(ingredient => `
                     <div>
                         <span>${ingredient.ingredient}</span>
@@ -58,6 +63,7 @@ function createCartRecipe(recipe) {
                             ${ingredient.unit ? `<span>${ingredient.unit}</span>` : ''}
                         </div>
                     </div>
+                    /*ajouter un espace entre les ingredients */
                 `).join('')}
             </div>
         </div>
